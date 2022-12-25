@@ -1,5 +1,6 @@
 package com.bridgelabz;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -78,5 +79,25 @@ public class EmployeePayrollService {
         }
 
         return this.employeePayrollList;
+    }
+
+    //updateEmployeeSalary method with parameters name, salary
+    public void updateEmployeeSalary(String name, double salary) throws EmployeePayrollException {
+        int result = employeePayrollDBService.updateEmployeeData(name, salary);
+        if (result == 0)
+            return;
+        EmployeePayrollData employeePayrollData = this.getEmployeePayrollData(name);
+        if (employeePayrollData != null)
+            employeePayrollData.salary = salary;
+    }
+
+    private EmployeePayrollData getEmployeePayrollData(String name) {
+        return this.employeePayrollList.stream().filter(empPayrollDataItem -> empPayrollDataItem.name.equals(name))
+                .findFirst().orElse(null);//Returns a stream consisting of the elements of this stream that match the given predicate
+
+    }
+
+    public boolean checkEmployeePayrollSyncWithDataBase(String name) throws EmployeePayrollException {
+        return employeePayrollList.get(0).equals(getEmployeePayrollData(name));
     }
 }
