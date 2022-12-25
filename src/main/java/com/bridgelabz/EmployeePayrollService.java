@@ -100,4 +100,14 @@ public class EmployeePayrollService {
     public boolean checkEmployeePayrollSyncWithDataBase(String name) throws EmployeePayrollException {
         return employeePayrollList.get(0).equals(getEmployeePayrollData(name));
     }
+
+    //reading employee payroll data for date range
+    public List<EmployeePayrollData> readEmployeePayrollForDateRange(IOService ioService, LocalDate startDate, LocalDate endDate) throws EmployeePayrollException {
+        if (ioService.equals(IOService.DB_IO)) {
+            return employeePayrollDBService.getEmployeePayrollForDateRange(startDate, endDate);
+        }
+
+        return null;
+
+    }
 }

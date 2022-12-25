@@ -111,4 +111,10 @@ public class EmployeePayrollDBService {
         }
         return result;
     }
+
+    //getEmployeePayrollForDateRange method with parameters startDate and endDate
+    public List<EmployeePayrollData> getEmployeePayrollForDateRange(LocalDate startDate, LocalDate endDate) throws EmployeePayrollException {
+        String sql = String.format("select * from employee_payroll_new where start_date between cast('%s' as date) AND date('%s');", Date.valueOf(startDate), Date.valueOf(endDate));
+        return this.getEmployeePayrollDataUsingDB(sql);
+    }
 }
