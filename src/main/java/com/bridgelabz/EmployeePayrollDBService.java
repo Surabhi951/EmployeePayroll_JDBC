@@ -1,6 +1,7 @@
 package com.bridgelabz;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,5 +90,25 @@ public class EmployeePayrollDBService {
         catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    //updateEmployeeData with parameters which is of return type is int
+    public int updateEmployeeData(String name, double salary) throws EmployeePayrollException {
+        return this.updateEmployeeDataUsingStatement(name, salary);
+    }
+
+    //updateEmployeeDataUsingStatement with parameters which is of return type is int
+    private int updateEmployeeDataUsingStatement(String name, double salary) throws EmployeePayrollException {
+        int result = 0;
+        String sql = String.format("update employee_payroll_new set salary = %.2f where name = '%s'", salary, name);//modified salary
+        try {
+            Connection con = this.getConnection();
+            java.sql.Statement stmt = con.createStatement();
+            result = stmt.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
