@@ -11,8 +11,6 @@ import com.bridgelabz.EmployeePayrollService.IOService;
 
 public class EmployeePayrollServiceTest {
 
-
-
     @Test
     public void givenThreeEmployees_WrittenToFile() {
         EmployeePayrollData[] empdata = {new EmployeePayrollData(1, "Bill", 1000000),
@@ -46,11 +44,11 @@ public class EmployeePayrollServiceTest {
 
     @Test
     public void givenDateRange_WhenRetrieved_ShouldMatch_EmployeeCount() throws EmployeePayrollException {
-        EmployeePayrollService employeePayRollService = new EmployeePayrollService();
-        employeePayRollService.readEmployeePayroll(IOService.DB_IO);
-        LocalDate startDate = LocalDate.of(2010, 10, 30);
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        employeePayrollService.readEmployeePayroll(IOService.DB_IO);
+        LocalDate startDate = LocalDate.of(2018, 01, 01);
         LocalDate endDate = LocalDate.now();
-        List<EmployeePayrollData> empPayRollData = employeePayRollService.readEmployeePayrollForDateRange(IOService.DB_IO,startDate,endDate);
-        Assertions.assertEquals(3, empPayRollData.size());
+        List<EmployeePayrollData> empPayrollData = employeePayrollService.readEmployeePayrollForDateRange(IOService.DB_IO,startDate,endDate);
+        Assertions.assertEquals(2, empPayrollData.size());
     }
 }
